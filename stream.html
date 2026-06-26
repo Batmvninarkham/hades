@@ -173,12 +173,7 @@ function loadStream(url, element) {
 Replace this later with:
 fetch('/api/live')
 */
-
-async function getlivematches(){
-  const match = await (await fetch ("https://streamed.pk/api/matches/live")).json();
-  return match;
-}
-const matches=getlivematches();
+const matches=await getlivematches();
 const container =
     document.getElementById("matches");
 
