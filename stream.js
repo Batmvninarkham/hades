@@ -39,29 +39,35 @@ async function getembedurl(data) {
       continue;
     }
 
-    const matchData = {
-      title: match.title,
-      streams: []
-    };
 
-    for (const source of match.sources) {
+const allStreams = await Promise.all(
 
-      const streams = await (
-        await fetch(
-          `https://streamed.pk/api/stream/${source.source}/${source.id}`
-        )
-      ).json();
+    match.sources.map(source =>
 
-      for (const stream of streams) {
-        matchData.streams.push({
-          streamNo: stream.streamNo,
-          viewers: stream.viewers,
-          embedUrl: stream.embedUrl
-        });
-      }
-    }
+        fetch(
+            `https://streamed.pk/api/stream/${source.source}/${source.id}`
+        ).then(r => r.json())
 
-    results.push(matchData);
+    )
+
+);
+    const streams = allStreams.flat();
+    results.push({
+
+    title: match.title,
+
+    streams: streams.map(stream => ({
+
+        streamNo: stream.streamNo,
+
+        viewers: stream.viewers,
+
+        embedUrl: stream.embedUrl
+
+    }))
+
+});
+
   }
 
   return results;
