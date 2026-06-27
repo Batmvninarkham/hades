@@ -30,48 +30,56 @@ async function getlivepopularmatches(){
   const match = await(await fetch ("https://streamed.pk/api/matches/live/popular")).json();
   return match;
 }
+
+            
+
 async function getembedurl(data) {
-  const results = [];
+console.log(data.length);
+    const results = await Promise.all(
 
-  for (const match of data) {
+        data.map(async (match) => {
 
-    if (!match.sources?.length) {
-      continue;
-    }
+            if (!match.sources?.length) {
+                return {
+                    title: match.title,
+                    streams: []
+                };
+            }
+
+            const allStreams = await Promise.all(
+
+                match.sources.map(source =>
+
+                    fetch(
+                        `https://streamed.pk/api/stream/${source.source}/${source.id}`
+                    ).then(r => r.json())
+
+                )
+
+            );
+
+            const streams = allStreams.flat();
+
+            return {
+                title: match.title,
+                streams: streams.map(stream => ({
+                    streamNo: stream.streamNo,
+                    viewers: stream.viewers,
+                    embedUrl: stream.embedUrl
+                }))
+            };
+
+        })
+
+    );
+
+    return results;
+
+}        
 
 
-const allStreams = await Promise.all(
 
-    match.sources.map(source =>
 
-        fetch(
-            `https://streamed.pk/api/stream/${source.source}/${source.id}`
-        ).then(r => r.json())
-
-    )
-
-);
-    const streams = allStreams.flat();
-    results.push({
-
-    title: match.title,
-
-    streams: streams.map(stream => ({
-
-        streamNo: stream.streamNo,
-
-        viewers: stream.viewers,
-
-        embedUrl: stream.embedUrl
-
-    }))
-
-});
-
-  }
-
-  return results;
-}
 module.exports={
   getcategory,
   getembedurl,
