@@ -1,19 +1,19 @@
 let streamNodes = [];
 let current = 0;
-
+const BASE_URL="https://hades-whdd.onrender.com"
 window.addEventListener("load", async () => {
 
     await loadCategories();
 
     wireButtons();
 
-    await load("/api/stream/live");
+    await load(`${BASE_URL}/api/stream/live`);
 
 });
 async function loadCategories() {
 
     const response =
-        await fetch("/api/stream");
+        await fetch(`${BASE_URL}/api/stream`);
 
     const categories =
         await response.json();
@@ -43,22 +43,22 @@ function wireButtons() {
     document
         .getElementById("liveBtn")
         .onclick = () =>
-            load("/api/stream/live");
+            load(`${BASE_URL}/api/stream/live`);
 
     document
         .getElementById("todayBtn")
         .onclick = () =>
-            load("/api/stream/today");
+            load(`${BASE_URL}/api/stream/today`);
 
     document
         .getElementById("livePopularBtn")
         .onclick = () =>
-            load("/api/stream/live/popular");
+            load(`${BASE_URL}/api/stream/live/popular`);
 
     document
         .getElementById("todayPopularBtn")
         .onclick = () =>
-            load("/api/stream/today/popular");
+            load(`${BASE_URL}/api/stream/today/popular`);
 
     document
         .getElementById("categoryBtn")
@@ -91,7 +91,7 @@ function wireButtons() {
                 return;
 
             load(
-                `/api/stream?category=${category}&popular=true`
+                `${BASE_URL}/api/stream?category=${category}&popular=true`
             );
 
         };
