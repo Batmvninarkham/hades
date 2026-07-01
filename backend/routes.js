@@ -1,7 +1,7 @@
 const express= require("express");
 const app = express();
 const streamapi = require("./stream");
-
+const cors = require("cors");
 const PORT=3000;
 app.get("/api/stream/live",async (req,res)=>{
   const match= await streamapi.getlivematches();
