@@ -1,4 +1,8 @@
 {
+
+ "scripts": {
+  "server": "node ./backend/routes.js"
+  },
   "dependencies": {
     "express": "^5.2.1"
   }
