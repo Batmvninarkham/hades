@@ -41,6 +41,11 @@ app.get("/api/stream/today/popular",async(req,res)=>{
   res.json(url);
 });
 
+app.use(cors({
+    origin: [
+        "https://hades-ashy.vercel.app"
+    ]
+}));
 app.listen(PORT,async()=>{
 console.log(`server running on  port ${PORT}`);
 });
