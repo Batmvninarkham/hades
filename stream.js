@@ -34,7 +34,6 @@ async function getlivepopularmatches(){
             
 
 async function getembedurl(data) {
-console.log(data.length);
     const results = await Promise.all(
 
         data.map(async (match) => {
