@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./favicon.png" type="image/png">
+<title>streamctl</title>
+
+<style>
+
+:root{
+    --bg:#0d0d0d;
+    --fg:#c8c8c8;
+    --green:#00ff87;
+    --border:#2a2a2a;
+    --selected:#1b1b1b;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:Menlo,Monaco,Consolas,monospace;
+    overflow:hidden;
+}
+
+#topbar{
+    height:32px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    color:var(--green);
+}
+
+#controls{
+
+    height:36px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:0 10px;
+
+}
+
+button,
+select{
+
+    background:#111;
+
+    color:var(--fg);
+
+    border:1px solid var(--border);
+
+    font-family:inherit;
+
+    height:24px;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    color:var(--green);
+
+}
+
+select{
+
+    min-width:170px;
+
+}
+
+#main{
+
+    display:flex;
+
+    height:calc(100vh - 92px);
+
+}
+
+#sidebar{
+
+    width:420px;
+
+    border-right:1px solid var(--border);
+
+    overflow-y:auto;
+
+}
+
+#viewer{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+#status{
+
+    height:32px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 12px;
+
+    color:#888;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+}
+
+iframe{
+
+    flex:1;
+
+    border:0;
+
+    background:black;
+
+}
+
+.match{
+
+    border-bottom:1px solid #181818;
+
+}
+
+.match-header{
+
+    padding:10px;
+
+    color:white;
+
+}
+
+.stream{
+
+    padding:6px 10px 6px 25px;
+
+    cursor:pointer;
+
+    color:#999;
+
+}
+
+.stream:hover{
+
+    background:var(--selected);
+
+}
+
+.stream.active{
+
+    background:var(--selected);
+
+    color:var(--green);
+
+}
+
+.stream::before{
+
+    content:"> ";
+
+}
+
+#footer{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:24px;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 10px;
+
+    color:#666;
+
+    background:var(--bg);
+
+    font-size:12px;
+
+}
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#222;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar">
+streamctl v0.1
+</div>
+
+<div id="controls">
+
+<button id="liveBtn">
+live
+</button>
+
+<button id="livePopularBtn">
+live-popular
+</button>
+
+<button id="todayBtn">
+today
+</button>
+
+<button id="todayPopularBtn">
+today-popular
+</button>
+
+<select id="categorySelect">
+<option value="">
+select category
+</option>
+</select>
+
+<button id="categoryBtn">
+category
+</button>
+
+<button id="categoryPopularBtn">
+category-popular
+</button>
+
+</div>
+
+<div id="main">
+
+<div id="sidebar">
+
+<div id="matches">
+
+</div>
+
+</div>
+
+<div id="viewer">
+
+<div id="status">
+
+no stream selected
+
+</div>
+
+<iframe
+id="stream-player"
+allowfullscreen
+sandbox="allow-scripts allow-same-origin allow-fullscreen"
+
+>
+
+</iframe>
+
+</div>
+
+</div>
+
+<div id="footer">
+
+    ↑ ↓ navigate | Enter load stream |  ᚱ ⧉ <a href="https://github.com/batmvninarkham"target="_blank" rel="noopener noreferrer">batmvn</a>
+
+
+</div>
+
+<script src="./app.js"></script>
+
+</body>
+</html>
