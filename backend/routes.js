@@ -2,6 +2,12 @@ const express= require("express");
 const app = express();
 const streamapi = require("./stream");
 const cors = require("cors");
+
+app.use(cors({
+    origin: [
+        "https://hades-ashy.vercel.app"
+    ]
+}));
 const PORT=3000;
 app.get("/api/stream/live",async (req,res)=>{
   const match= await streamapi.getlivematches();
@@ -41,11 +47,6 @@ app.get("/api/stream/today/popular",async(req,res)=>{
   res.json(url);
 });
 
-app.use(cors({
-    origin: [
-        "https://hades-ashy.vercel.app"
-    ]
-}));
 app.listen(PORT,async()=>{
 console.log(`server running on  port ${PORT}`);
 });
