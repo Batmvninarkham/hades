@@ -3,7 +3,10 @@ ___Original API documentation at streamed(dot)pk/docs___
 
 Darkness cannot drive out darkness ~mlkjr  
 A working progress  
-# install  
+# install 
+````bash
 - git clone**repourl**  
-- npm install express
-- node routes.js  its a small project don't judge
+- npm install express  
+- node routes.js  its a small project don't judge  
+```
+> scales well on desktop trashy on phones might adjust later
