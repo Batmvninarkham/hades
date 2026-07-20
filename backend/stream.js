@@ -37,10 +37,11 @@ async function getembedurl(data) {
     const results = await Promise.all(
 
         data.map(async (match) => {
-
+          let date = new Date(match.date);
+          let dated=`${match.title} | ${date.toLocaleString()}`;
             if (!match.sources?.length) {
                 return {
-                    title: match.title,
+                    title: dated,
                     streams: []
                 };
             }
@@ -60,7 +61,7 @@ async function getembedurl(data) {
             const streams = allStreams.flat();
 
             return {
-                title: match.title,
+                title: dated,
                 streams: streams.map(stream => ({
                     streamNo: stream.streamNo,
                     viewers: stream.viewers,
